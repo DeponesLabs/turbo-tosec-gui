@@ -1,5 +1,4 @@
-from PySide6.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, 
-                               QTableView, QLineEdit, QLabel, QHeaderView, QAbstractItemView)
+from PySide6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QTableView, QLineEdit, QLabel, QHeaderView, QAbstractItemView
 from PySide6.QtCore import QTimer, Qt
 from PySide6.QtGui import QAction, QIcon
 
@@ -7,8 +6,12 @@ from core.database import DatabaseManager
 from ui.models import InfiniteTableModel
 
 class MainWindow(QMainWindow):
-    def __init__(self, db_path: str):
+    
+    def __init__(self):
+        
         super().__init__()
+        
+        db_path = "../../../TEST_DATS/tosec-2025-03-13.duckdb"
         
         self.setWindowTitle("Depones GUI - Turbo-TOSEC Viewer")
         self.resize(1200, 800)
