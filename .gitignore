@@ -71,3 +71,6 @@ $RECYCLE.BIN/
 temp_chunks/
 temp/
 debug.log
+
+# Data Testing Files
+TEST_DATS/*
