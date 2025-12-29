@@ -1,0 +1,73 @@
+# --- Python Standartları ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# --- Sanal Ortamlar (Virtual Envs) ---
+# Farklı isimlendirme alışkanlıklarını kapsar
+venv/
+.venv/
+env/
+.env
+ENV/
+env.bak/
+venv.bak/
+
+# --- Test ve Coverage ---
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# --- IDE ve Editörler ---
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- İşletim Sistemi Dosyaları ---
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS (Ekipte Mac kullanan olursa diye)
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# --- Proje Özel (Turbo-Skryer / Data Engineering) ---
+# Büyük veri dosyalarını yanlışlıkla commitlememek için
+*.duckdb
+*.db
+*.sqlite3
+*.parquet
+*.csv
+*.json
+
+# Loglar ve Geçici Dosyalar
+*.log
+temp_chunks/
+temp/
+debug.log
