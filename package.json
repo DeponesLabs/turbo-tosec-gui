@@ -1,5 +1,5 @@
 {
-  "name": "Turbo Skryer",
+  "name": "turbo-skryer",
   "version": "0.1.0",
   "description": "A high-performance interface for Turbo-TOSEC, powered by the Skryer Engine. ",
   "scripts": {
