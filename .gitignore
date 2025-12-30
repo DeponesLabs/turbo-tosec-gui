@@ -57,20 +57,5 @@ $RECYCLE.BIN/
 .AppleDouble
 .LSOverride
 
-# --- Proje Özel (Turbo-Skryer / Data Engineering) ---
-# Büyük veri dosyalarını yanlışlıkla commitlememek için
-*.duckdb
-*.db
-*.sqlite3
-*.parquet
-*.csv
-*.json
-
-# Loglar ve Geçici Dosyalar
-*.log
-temp_chunks/
-temp/
-debug.log
-
 # Data Testing Files
 TEST_DATS/*
