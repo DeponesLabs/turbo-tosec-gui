@@ -27,7 +27,7 @@ dependencies = [
 
 # 👇 It indicates that the packages are located under the 'src' file.
 [tool.setuptools.packages.find]
-where = ["src"]
+where = ["src/turbo_skryer"]
 
 # ------------------------------------------------------------------
 #  🛠️ TOOLS CONFIGURATION (Depones Labs Standards)

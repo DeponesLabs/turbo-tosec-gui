@@ -2,19 +2,34 @@
   "name": "turbo-skryer",
   "version": "0.1.0",
   "description": "A high-performance interface for Turbo-TOSEC, powered by the Skryer Engine. ",
+  "homepage": "https://github.com/deponeslabs/turbo-skryer#readme",
+  "bugs": {
+    "url": "https://github.com/deponeslabs/turbo-skryer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deponeslabs/turbo-skryer.git"
+  },
+  "license": "ISC",
+  "author": "Berk Acunas",
+  "type": "commonjs",
+  "main": "commitlint.config.js",
+  "directories": {
+    "test": "tests"
+  },
   "scripts": {
     "prepare": "husky install",
     "commit": "cz"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.0",
     "@commitlint/config-conventional": "^17.0.0",
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^8.0.0"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
   }
 }

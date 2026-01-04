@@ -1,9 +1,7 @@
 from PySide6.QtCore import QAbstractTableModel, Qt, QModelIndex, Signal
 from typing import Any, Dict
 
-# core/database.py içindeki sınıfı import ediyoruz
-# (Gerçek projede import yolu proje yapısına göre ayarlanmalı)
-from turbo_skryer.core.database import DatabaseManager
+from turbo_tosec import DatabaseManager
 
 class InfiniteTableModel(QAbstractTableModel):
     """
@@ -139,15 +137,13 @@ class InfiniteTableModel(QAbstractTableModel):
         # This prevents "cache thrashing" if user scrolls up/down by 1 pixel.
         page_start = (row_index // self.PAGE_SIZE) * self.PAGE_SIZE
         
-        # Fetch from DB
-        new_data = self.db.fetch_data(
-            limit=self.PAGE_SIZE,
-            offset=page_start,
-            filters=self._filters,
-            sort_col=self._sort_col_name,
-            sort_asc=self._sort_asc
-        )
-        
+        try:
+            # Fetch from DB
+            new_data = self.db.fetch_page(limit=self.PAGE_SIZE, offset=page_start, filters=self._filters, sort_col=self._sort_col_name, sort_asc=self._sort_asc)
+        except Exception as e:
+            print(f"Model Fetch Error: {e}")
+            new_data = []
+            
         # Update Cache
         self._cache_data = new_data
         self._cache_offset = page_start
