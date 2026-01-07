@@ -15,6 +15,7 @@ class InfiniteTableModel(QAbstractTableModel):
     CACHE_TOLERANCE = 500 # Pre-fetch margin (Not strictly used here but good for logic)
 
     def __init__(self, db_manager: DatabaseManager, parent=None):
+        
         super().__init__(parent)
         self.db = db_manager
         
@@ -49,6 +50,7 @@ class InfiniteTableModel(QAbstractTableModel):
         return self._total_rows
 
     def columnCount(self, parent=QModelIndex()) -> int:
+        
         return len(self.db.columns)
 
     def data(self, index: QModelIndex, role: int = Qt.DisplayRole) -> Any:

@@ -45,7 +45,7 @@ class MainWindow(QMainWindow):
         self.search_timer.setSingleShot(True)
         self.search_timer.timeout.connect(self._apply_search)
         
-        self.settings = QSettings("Depones", "TurboSkryer")
+        self.settings = QSettings("Depones Labs", "Skryer")
         self._setup_menu_bar()
         self._load_ui_settings() # Pencere açılırken son konumu hatırla
 
@@ -254,8 +254,8 @@ class MainWindow(QMainWindow):
             value = self.model.data(index, Qt.DisplayRole)
             row_data[col_name] = value
             
-            # Send dict to Detail Panel
-            self.detail_panel.update_data(row_data)
+        # Send dict to Detail Panel
+        self.detail_panel.update_data(row_data)
 
     def _reset_ui_state(self):
         self.btn_import.setEnabled(True)
@@ -287,6 +287,9 @@ class MainWindow(QMainWindow):
             # (Prioritize the left side, let the right side adapt to the content)
             self.splitter.setStretchFactor(0, 1)
             self.splitter.setStretchFactor(1, 0)
+            
+        vault_root = self.settings.value("paths/vault_root", "", type=str)
+        self.detail_panel.set_vault_path(vault_root)
 
     def _load_ui_settings(self):
         """Restores window size and splitter position."""
