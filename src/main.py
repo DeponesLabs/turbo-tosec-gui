@@ -6,17 +6,15 @@ from turbo_skryer.ui.MainWindow import MainWindow
 
 def main():
     
-    # 1. Setup Application
     app = QApplication(sys.argv)
-    app.setApplicationName("Depones GUI")
     app.setOrganizationName("Depones Labs")
+    app.setApplicationName("Skryer")
 
-    # 3. Launch Window
     window = MainWindow()
     window.show()
-    
-    # 4. Event Loop
+
     sys.exit(app.exec())
 
 if __name__ == "__main__":
+    
     main()

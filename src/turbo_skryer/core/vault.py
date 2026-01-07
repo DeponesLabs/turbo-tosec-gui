@@ -117,7 +117,7 @@ class VaultManager:
 
         return assets
 
-    def find_playable_media(self, title: str, system: str) -> Optional[str]:
+    def find_playable_media(self, title: str, platform: str) -> Optional[str]:
         """
         Find the game's executable file according to the specified rules.
 
@@ -132,10 +132,10 @@ class VaultManager:
         if not game_folder:
             return None
 
-        target_platform_dir = self.PLATFORM_MAPPING.get(system)
+        target_platform_dir = self.PLATFORM_MAPPING.get(platform)
         # If we couldn't find it in the mapping, maybe it's listed as "C64" in the database.
         if not target_platform_dir:
-            target_platform_dir = system
+            target_platform_dir = platform
 
         media_path = game_folder / "MEDIA" / "Gamefiles" / target_platform_dir
         

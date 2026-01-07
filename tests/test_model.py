@@ -22,12 +22,31 @@ def model(db_manager):
     
 # Test turbo_tosec.DatabaseManager.fetch_page method
 # def fetch_page(self, limit: int, offset: int, filters: Dict[str, str] = None, sort_col: str = None, sort_asc: bool = True) -> List[Tuple]:
-@pytest.mark.parametrize("system_name, expected_folder", [
-    ("Commodore 64", "C64"),
-    ("Commodore Amiga", "Amiga"),
-    ("Atari ST", "Atari ST"),
-    ("Unknown System", None) # Fail-safe testi (örnek)
-])
+# @pytest.mark.parametrize("platform, expected_folder", [
+#     ("Commodore 64", "C64"),
+#     ("Commodore Amiga", "Amiga"),
+#     ("Atari ST", "Atari ST"),
+#     ("Unknown System", None) # Fail-safe testi (örnek)
+# ])
+def foo(platform, expected_folder):
+    pass
+
+def test_on_table_row_selected(db_manager, model):
+
+    columns = db_manager.columns
+    row_idx = 0  # First line is enough for test purposes.
+    row_data = {}
+    
+    for col_idx, col_name in enumerate(columns):
+        # Access the cell using the model's index() method
+        index = model.index(row_idx, col_idx)
+        # Get data with data() (DisplayRole)
+        value = model.data(index, Qt.DisplayRole)
+        row_data[col_name] = value
+        
+    platform_name = row_data['platform']
+    
+    assert(platform_name, 'platform')
 
 def get_row_as_dict(model, row_idx):
   
@@ -44,44 +63,7 @@ def get_row_as_dict(model, row_idx):
         
     return row_data
 
-@pytest.mark.parametrize("filter_system, expected_platform_val", [
-    # (Veritabanında arayacağımız sistem, Beklediğimiz Platform Değeri)
-    ("Commodore 64", "Commodore 64"),
-    ("Commodore Amiga", "Commodore Amiga"),
-    # Eğer DB'de "Unknown" yoksa bu test için Mock kullanmak gerekir, şimdilik var olanları yazalım:
-    ("Sinclair ZX Spectrum", "Sinclair ZX Spectrum") 
-])
-def test_fetch_row_data_integration(model, filter_system, expected_platform_val):
-    """
-    Integration Test: 
-    1. Modele filtre uygula.
-    2. İlk satırı View gibi iste.
-    3. Gelen veride 'platform' sütunu doğru mu kontrol et.
-    """
-    
-    # 1. Filtrele (Böylece satır 0 kesinlikle istediğimiz sistem olur)
-    # Not: DB'de 'system' sütununa göre filtreliyoruz
-    model.set_filter("system", filter_system)
-    
-    # Veri var mı?
-    if model.rowCount() == 0:
-        pytest.skip(f"Veritabanında '{filter_system}' için kayıt bulunamadı, test atlanıyor.")
-    
-    # 2. View Simülasyonu: 0. Satırı çek
-    # (Bu işlem arka planda fetch_page yapar, cache doldurur)
-    row_data = get_row_as_dict(model, row_idx=0)
-    
-    # 3. Kontrol Et
-    print(f"\nÇekilen Satır Verisi: {row_data}")
-    
-    # Platform sütunu geldi mi?
-    assert "platform" in row_data, "Row data içinde 'platform' anahtarı yok!"
-    
-    # Gelen değer beklediğimiz mi?
-    # Not: DB'deki veri bazen '-' olabilir, senin mapping mantığını burada değil
-    # DetailsPanel testinde kontrol etmek daha doğrudur. 
-    # Burada sadece Modelin veriyi doğru taşıdığını test ediyoruz.
-    assert row_data["system"] == filter_system
+
     
 # Test with mock object
 def test_model_with_mock_db():

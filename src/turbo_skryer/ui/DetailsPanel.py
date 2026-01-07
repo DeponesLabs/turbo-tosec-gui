@@ -31,20 +31,17 @@ class DetailPanel(QWidget):
         
         self.vault_manager = None
         self.current_playable_path = None
+        self.settings = QSettings("Depones Labs", "Skryer")
         
         # Main Layout
         self.layout = QVBoxLayout(self)
         self.layout.setContentsMargins(10, 10, 10, 10)
         self.layout.setSpacing(15)
 
-        # Header (Title and Icon Area)
         self._setup_header()
-        # 2. Metadata (Platform, Year, Category etc.)
         self._setup_metadata_section()
-        # 3. Technical Details (Hashs, Size, Filename)
         self._setup_technical_section()
         self._setup_description_section()
-        # 5. Action Buttons (Launcher, Folder etc.) (Phase 4)
         self._setup_action_bar()
         
         self.layout.addStretch()
@@ -145,16 +142,16 @@ class DetailPanel(QWidget):
         # Ama şimdilik basitçe self.platform_label ve self.current_playable_path kullanalım.
         
         game_path = self.current_playable_path
-        platform_name = self.platform_label.text() # UI'dan okuyoruz (örn: Commodore 64)
+        platform = self.platform_label.text() # UI'dan okuyoruz (örn: Commodore 64)
         
         if not game_path:
             return # Dosya yoksa zaten buton pasif olmalı ama güvenlik için.
 
         # 2. Ayarlardan Emülatör yolunu bul
-        settings_key = self.PLATFORM_TO_SETTINGS_KEY.get(platform_name)
+        settings_key = self.PLATFORM_TO_SETTINGS_KEY.get(platform)
         if not settings_key:
             # Bilinmeyen platform
-            print(f"Unknown platform key for: {platform_name}")
+            print(f"Unknown platform key for: {platform}")
             return
 
         emulator_exe = self.settings.value(settings_key, "", type=str)
@@ -163,11 +160,11 @@ class DetailPanel(QWidget):
         if not emulator_exe:
             from PySide6.QtWidgets import QMessageBox
             QMessageBox.warning(self, "Emulator Not Configured", 
-                                f"Please configure the emulator for '{platform_name}' in Settings > Emulators.")
+                                f"Please configure the emulator for '{platform}' in Settings > Emulators.")
             return
 
         # Launch
-        success = Launcher.launch(emulator_exe, game_path, platform_name)
+        success = Launcher.launch(emulator_exe, game_path, platform)
         
         if not success:
             from PySide6.QtWidgets import QMessageBox
@@ -233,7 +230,7 @@ class DetailPanel(QWidget):
         platform_name = data.get("platform", data.get("system", "-"))
 
         self.title_label.setText(data.get("title", "Unknown Title"))
-        self.platform_label.setText(data.get("platform_name", "-"))
+        self.platform_label.setText(data.get("platform", "-"))
         self.year_label.setText(str(data.get("release_year", "-")))
         
         self.filename_label.setText(data.get("rom_name", "-"))
